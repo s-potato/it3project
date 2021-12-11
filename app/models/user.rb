@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          has_one_attached :avatar
-
-         validates :name, presence: true
-         validates :age, presence: true
+         
+         validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
+         validates :name, presence: true, length: { maximum: 30 }
+         validates :age, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 6, less_than_or_equal_to:150 }
 end

@@ -1,6 +1,7 @@
 class FilmsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :set_film, only: %i[ show edit update destroy ]
+  
   # GET /films or /films.json
   def index
     @films = Film.all
