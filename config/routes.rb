@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :films
   get 'users/show'
   root 'static_pages#home'
   get 'static_pages/home'
