@@ -28,7 +28,7 @@
 
 <p>
   <strong>Rate:</strong>
-  <%= @film.rate %>
+  <%= @film.rate.round(2) %>
 </p>
 
 <p>
@@ -36,6 +36,29 @@
     <%= video_tag(url_for(@film.trailer), controls: '') %>
   <% end %>
 </p>
+
+<h2>Review From</h2>
+<%= form_with(model: @film_review, local: true) do |form| %>
+  <div class= "field">
+    <%= form.text_area :review %>
+    <%= form.hidden_field :film_id, :value => @film.id %>
+  </div>
+  <div class= "field">
+    <label>Rate: </label>
+    <%= form.number_field :rate, required: '' %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<h2>Review List</h2>
+<ul>
+  <% @film.film_review.each do |film_review|%>
+   <li><b><%= film_review.user.name if film_review.user %></b>: <%= film_review.review %> (<%= film_review.rate %>)
+     </li>
+<% end %>
+</ul>
 
 <%= link_to 'Edit', edit_film_path(@film) %> |
 <%= link_to 'Back', films_path %>

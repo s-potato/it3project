@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Thumbnail</th>
       <th>Title</th>
       <th>Description</th>
       <th>Genre</th>
@@ -17,11 +18,16 @@
   <tbody>
     <% @films.each do |film| %>
       <tr>
+
+        <td>
+        <% if film.thumbnail.attached? %>
+          <%= image_tag film.thumbnail, style: "width: 100px; height: auto" %>
+        <% end %></td>
         <td><%= film.title %></td>
         <td><%= film.description %></td>
         <td><%= film.genre %></td>
         <td><%= film.episode %></td>
-        <td><%= film.rate %></td>
+        <td><%= film.rate.round(2) %></td>
         <td><%= link_to 'Show', film %></td>
         <td><%= link_to 'Edit', edit_film_path(film) %></td>
         <td><%= link_to 'Destroy', film, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @film_review.user_id %>
+</p>
+
+<p>
+  <strong>Film:</strong>
+  <%= @film_review.film_id %>
+</p>
+
+<p>
+  <strong>Review:</strong>
+  <%= @film_review.review %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @film_review.rate %>
+</p>
+
+<%= link_to 'Edit', edit_film_review_path(@film_review) %> |
+<%= link_to 'Back', film_reviews_path %>

@@ -1,6 +1,6 @@
 class FilmsController < ApplicationController
+  before_action :authenticate_user!, :except => [:index, :show]
   before_action :set_film, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!
   # GET /films or /films.json
   def index
     @films = Film.all
@@ -8,6 +8,7 @@ class FilmsController < ApplicationController
 
   # GET /films/1 or /films/1.json
   def show
+    @film_review = FilmReview.new
   end
 
   # GET /films/new
@@ -50,6 +51,9 @@ class FilmsController < ApplicationController
 
   # DELETE /films/1 or /films/1.json
   def destroy
+    @film.film_review.each do |film_review|
+        film_review.destroy
+    end
     @film.destroy
     respond_to do |format|
       format.html { redirect_to films_url, notice: "Film was successfully destroyed." }
