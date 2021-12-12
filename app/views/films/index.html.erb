@@ -1,41 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Films</h1>
+<div class="jumbotron">
+<h1 class="text-center">Your Amazing Film Reviews</h1>
+<% if !user_signed_in? %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Thumbnail</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Genre</th>
-      <th>Episode</th>
-      <th>Rate</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <p class="text-center">Not have account yet?</p>
+    <p class="text-center"><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary btn-lg", style:"color: #fff"  %></p>
+<% else %>
+    <p class="text-center">Feel free to find your favourite films.</p>
 
-  <tbody>
-    <% @films.each do |film| %>
-      <tr>
+<% end %>
+  </div>
 
-        <td>
-        <% if film.thumbnail.attached? %>
-          <%= image_tag film.thumbnail, style: "width: 100px; height: auto" %>
-        <% end %></td>
-        <td><%= film.title %></td>
-        <td><%= film.description %></td>
-        <td><%= film.genre %></td>
-        <td><%= film.episode %></td>
-        <td><%= film.rate.round(2) %></td>
-        <td><%= link_to 'Show', film %></td>
-        <td><%= link_to 'Edit', edit_film_path(film) %></td>
-        <td><%= link_to 'Destroy', film, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <% @films.each do |film| %>
+    <div class="col-sm-6 col-md-3">
+        <%= link_to (image_tag film.thumbnail, class: 'thumbnail'), film %>
+    </div>  
+  <% end %>
+</div>
 
-<br>
-
-<%= link_to 'New Film', new_film_path %>
+<style>
+  .thumbnail {
+    width: 100%;
+    height: 250px;
+  }
+</style>

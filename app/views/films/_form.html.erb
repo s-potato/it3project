@@ -10,25 +10,32 @@
       </ul>
     </div>
   <% end %>
+ <div class="table-responsive">
+  <table class="table">
+  <tbody>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+    <tr>
+      <td class="field"><%= form.label :title %></td>
+      <td><%= form.text_field :title %></td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+    <tr>
+      <td class="field"><%= form.label :description %></td>
+      <td><%= form.text_field :description %></td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :genre %>
-    <%= form.text_field :genre %>
-  </div>
+    <tr>
+      <td class="field"><%= form.label :genre %></td>
+      <td><%= form.text_field :genre %></td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :episode %>
-    <%= form.number_field :episode %>
+    <tr>
+      <td class="field"><%= form.label :episode %></td>
+      <td><%= form.number_field :episode %></td>
+    </tr>
+  
+  </tbody>
+  </table>
   </div>
 
   <div class="field">
@@ -45,3 +52,4 @@
     <%= form.submit %>
   </div>
 <% end %>
+

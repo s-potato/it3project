@@ -1,64 +1,127 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @film.title %>
-</p>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+      <h2 class="text-center"><%= @film.title %>
+    </h2>
+        <%= image_tag(@film.thumbnail, class: 'thumbnail') %>
+        <div class="star-rating" data-score= <%= @avg_review %> ></div>
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td><strong>Title:</strong></td>
+                <td><%= @film.title %></td>
+              </tr>
+              <tr>
+                <td><strong>Description:</strong></td>
+                <td><%= @film.description %></td>
+              </tr>
+              <tr>
+                <td><strong>Genre:</strong></td>
+                <td><%= @film.genre %></td>
+              </tr>
+              <tr>
+                <td><strong>Episodes:</strong></td>
+                <td><%= @film.episode %></td>
+              </tr>
+              <tr>
+                <td><strong>Rating:</strong></td>
+                <td><%= @film.rate %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+          <h2><br></h2>
+          <h3>Trailer:</h3>
+          <% if @film.trailer.attached? %>
+          <%= video_tag(url_for(@film.trailer), controls: '') %>
+          <% else %>
+          <p>Not have trailer yet!</p>
+          <% end %>
+          <br>
+          <% if user_signed_in? %>
+          <h3>Review form</h3>
+                <%= form_with(model: @film_review, local: true) do |form| %>
+                <div class= "field">
+                <%= form.text_area :review, class: "textarea" %>
+                  <%= form.hidden_field :film_id, :value => @film.id %>
+                </div>
+                <div class= "field">
+        <label>Rate: </label>
+        <%= form.number_field :rate, min: 0, max: 10, step: 1 %>
+      </div>
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+    <% end %>
+    <h2>Review List</h2>
+    <ul>
+      <% @film.film_review.each do |film_review|%>
+      <li><b><%= film_review.user.name if film_review.user %></b>: <%= film_review.review %> (<%= film_review.rate %>)
+        </li>
+    <% end %>
+    </ul>
+          </div>
+        </div>
 
-<p>
-  <% if @film.thumbnail.attached? %>
-    <%= image_tag @film.thumbnail %>
-  <% end %>
-</p>
-
-  <p>
-  <strong>Description:</strong>
-  <%= @film.description %>
-</p>
-
-<p>
-  <strong>Genre:</strong>
-  <%= @film.genre %>
-</p>
-
-<p>
-  <strong>Episode:</strong>
-  <%= @film.episode %>
-</p>
-
-<p>
-  <strong>Rate:</strong>
-  <%= @film.rate.round(2) %>
-</p>
-
-<p>
-  <% if @film.trailer.attached? %>
-    <%= video_tag(url_for(@film.trailer), controls: '') %>
-  <% end %>
-</p>
-
-<h2>Review From</h2>
-<%= form_with(model: @film_review, local: true) do |form| %>
-  <div class= "field">
-    <%= form.text_area :review %>
-    <%= form.hidden_field :film_id, :value => @film.id %>
-  </div>
-  <div class= "field">
-    <label>Rate: </label>
-    <%= form.number_field :rate%>
-  </div>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+        <% if user_signed_in? %>
+        <%= link_to 'Edit', edit_film_path(@film) %> |
 <% end %>
-
-<h2>Review List</h2>
-<ul>
-  <% @film.film_review.each do |film_review|%>
-   <li><b><%= film_review.user.name if film_review.user %></b>: <%= film_review.review %> (<%= film_review.rate %>)
-     </li>
-<% end %>
-</ul>
-
-<%= link_to 'Edit', edit_film_path(@film) %> |
 <%= link_to 'Back', films_path %>
+      </div>
+    </div>
+
+<script>
+    $('.star-rating').raty({
+      path: '/assets/',
+      readOnly: true,
+      score: function() {
+            return $(this).attr('data-score');
+    }
+  });
+</script>
+
+<style>
+  .thumbnail {
+    width: 100%;
+    height: auto;
+  }
+  .textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
