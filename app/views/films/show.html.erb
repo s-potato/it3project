@@ -29,7 +29,7 @@
               </tr>
               <tr>
                 <td><strong>Rating:</strong></td>
-                <td><%= @film.rate %></td>
+                <td><%= @film.rate.round(2) %></td>
               </tr>
             </tbody>
           </table>
@@ -63,7 +63,7 @@
     <h2>Review List</h2>
     <ul>
       <% @film.film_review.each do |film_review|%>
-      <li><b><%= film_review.user.name if film_review.user %></b>: <%= film_review.review %> (<%= film_review.rate %>)
+      <li><b><%= film_review.user.name if film_review.user %></b>: <%= film_review.review %>   (<%= film_review.rate %>)
         </li>
     <% end %>
     </ul>
