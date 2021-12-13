@@ -39,7 +39,7 @@
           <h2><br></h2>
           <h3>Trailer:</h3>
           <% if @film.trailer.attached? %>
-          <%= video_tag(url_for(@film.trailer), controls: '') %>
+          <%= video_tag(url_for(@film.trailer), controls: '', class: 'thumbnail') %>
           <% else %>
           <p>Not have trailer yet!</p>
           <% end %>
